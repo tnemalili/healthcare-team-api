@@ -2,7 +2,6 @@ package routes
 
 import (
 	"auth.api/controllers"
-	"auth.api/core"
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
@@ -15,10 +14,10 @@ func ConfigureRouter(router *echo.Echo) error {
 	version := fmt.Sprintf("/api/%s/", os.Getenv("API_VERSION"))
 	port := os.Getenv("API_PORT")
 	router.Use(middleware.Recover())
-	router.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{
-		KeyLookup: "header:X-API-KEY",
-		Validator: core.APIKEYValidator,
-	}))
+	//router.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{
+	//	KeyLookup: "header:X-API-KEY",
+	//	Validator: core.APIKEYValidator,
+	//}))
 	router.Use(middleware.CORSWithConfig(middleware.CORSConfig{AllowOrigins: []string{"*"}}))
 
 	// DEBUG MODE (OPTIONAL)
