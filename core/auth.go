@@ -24,8 +24,7 @@ func (receiver *HTTP) CREATECredHandler(username string, password string) (*http
 
 	secret, err := HashIdentity(password)
 	encrypted, _ := EncryptAES(username)
-	token := GenerateCode()
-	newCred := models.NewCred(encrypted, secret, token)
+	newCred := models.NewCred(encrypted, secret)
 	// INJECT TRANSACTION ID
 	url := fmt.Sprintf("%v/%v/%v", StorageUrl, CREDENTIALS, encrypted)
 	headers := make(map[string]interface{})
