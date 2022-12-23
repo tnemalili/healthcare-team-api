@@ -13,5 +13,4 @@ RUN adduser -u 1000 -G noroot -h /home/noroot -D noroot
 RUN mkdir /home/noroot/app
 WORKDIR /home/noroot/app
 COPY --from=builder /build/auth.api /home/noroot/app/
-EXPOSE 3540
 CMD ["./auth.api"]
