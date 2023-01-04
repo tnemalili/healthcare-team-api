@@ -4,15 +4,9 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/base64"
-	"errors"
-	"fmt"
 	guuid "github.com/google/uuid"
-	"github.com/pquerna/otp"
-	"github.com/pquerna/otp/totp"
 	log "github.com/sirupsen/logrus"
-	"golang.org/x/crypto/bcrypt"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -34,56 +28,6 @@ func GenerateTransactionId() string {
 func Now() time.Time {
 
 	return time.Now()
-}
-
-func VALIDATENumber(mobile string) error {
-	startsWithZero := strings.HasPrefix(mobile, "0")
-	numberLength, err := strconv.Atoi(os.Getenv("NUMBER_LENGTH"))
-	if err != nil {
-		return errors.New("invalid number length")
-	}
-	validLength := len(mobile) == numberLength
-	if !startsWithZero || !validLength {
-		return errors.New("invalid mobile number")
-	}
-	return nil
-}
-
-func PrependCode(mobile string) string {
-	m := strings.TrimPrefix(mobile, "0")
-	return fmt.Sprintf("%v%v", os.Getenv("COUNTRY_CODE"), m)
-}
-
-func GenerateOTP() (string, error) {
-
-	now := time.Now()
-	secret := os.Getenv("OTP_SECRET")
-	otpLength, err := strconv.Atoi(os.Getenv("OTP_LENGTH"))
-	if err != nil {
-		log.Error("Problem getting OTP Length")
-		return "0000", err
-	}
-	digits := otp.Digits(otpLength)
-	counter := now.Add(100)
-	opts := totp.ValidateOpts{Digits: digits}
-	code, err := totp.GenerateCodeCustom(secret, counter, opts)
-	if err != nil {
-		log.Error("Problem Generating OTP: ", err.Error())
-		return "", err
-	}
-	log.Warnf("[GenerateOTP] OTP: %v", code)
-
-	return code, nil
-}
-
-func HashIdentity(password string) (string, error) {
-	b, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(b), err
-}
-
-func CheckIdentityHash(password string, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
 }
 
 func EncryptAES(plaintext string) (string, error) {
