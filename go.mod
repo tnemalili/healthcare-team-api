@@ -1,4 +1,4 @@
-module auth.api
+module billing.api
 
 go 1.18
 

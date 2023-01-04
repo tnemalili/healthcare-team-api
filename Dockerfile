@@ -5,7 +5,7 @@ WORKDIR /build
 
 ENV CGO_ENABLED=0
 
-RUN go build -o auth.api .
+RUN go build -o billing.api .
 
 FROM alpine:latest
 RUN addgroup -g 1000 noroot
@@ -14,5 +14,5 @@ RUN mkdir /home/noroot/app
 WORKDIR /home/noroot/app
 EXPOSE API_PORT=3540
 EXPOSE API_PORT=80
-COPY --from=builder /build/auth.api /home/noroot/app/
-CMD ["./auth.api"]
+COPY --from=builder /build/billing.api /home/noroot/app/
+CMD ["./billing.api"]

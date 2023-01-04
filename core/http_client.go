@@ -1,7 +1,7 @@
 package core
 
 import (
-	"auth.api/core/models"
+	"billing.api/core/models"
 	"bytes"
 	"encoding/json"
 	"errors"

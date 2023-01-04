@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"auth.api/controllers"
+	"billing.api/controllers"
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
@@ -32,8 +32,8 @@ func ConfigureRouter(router *echo.Echo) error {
 
 	///////////////////////////// AUTH SECTION ///////////////////////////////
 
-	api.POST("otp", controllers.RequestOTP)
-	api.POST("token", controllers.RequestAToken)
+	api.POST("payment", controllers.MakePayment)
+	api.POST("transactions", controllers.GetTransactions)
 
 	data, err := json.MarshalIndent(router.Routes(), "", "  ")
 	if err != nil {
@@ -42,7 +42,7 @@ func ConfigureRouter(router *echo.Echo) error {
 
 	// LOG ALL REGISTERED ROUTES
 	log.Info(string(data))
-	log.Info("[AURA.CORE.AUTH.API - STARTED!]")
+	log.Info("[AURA.CORE.BILLING.API - STARTED!]")
 	err = router.Start(fmt.Sprintf(":%s", port))
 	return err
 }
