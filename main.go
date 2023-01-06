@@ -1,8 +1,8 @@
 package main
 
 import (
-	"billing.api/routes"
 	"github.com/labstack/echo/v4"
+	"suppliers.api/routes"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -13,6 +13,6 @@ func main() {
 	router := echo.New()
 	err := routes.ConfigureRouter(router)
 	if err != nil {
-		log.Errorf("[billing.api] Error: %v", err.Error())
+		log.Errorf("[suppliers.api] Error: %v", err.Error())
 	}
 }

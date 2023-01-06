@@ -1,13 +1,13 @@
 package routes
 
 import (
-	"billing.api/controllers"
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	log "github.com/sirupsen/logrus"
 	"os"
+	"suppliers.api/controllers"
 )
 
 func ConfigureRouter(router *echo.Echo) error {
@@ -32,8 +32,8 @@ func ConfigureRouter(router *echo.Echo) error {
 
 	///////////////////////////// AUTH SECTION ///////////////////////////////
 
-	api.POST("payment", controllers.MakePayment)
-	api.POST("transactions", controllers.GetTransactions)
+	api.POST("suppliers", controllers.CreateSupplier)
+	api.POST("responer", controllers.CreateSupplier)
 
 	data, err := json.MarshalIndent(router.Routes(), "", "  ")
 	if err != nil {
@@ -42,7 +42,7 @@ func ConfigureRouter(router *echo.Echo) error {
 
 	// LOG ALL REGISTERED ROUTES
 	log.Info(string(data))
-	log.Info("[AURA.CORE.BILLING.API - STARTED!]")
+	log.Info("[AURA.CORE.SUPPLIERS.API - STARTED!]")
 	err = router.Start(fmt.Sprintf(":%s", port))
 	return err
 }

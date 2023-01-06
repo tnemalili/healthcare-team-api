@@ -1,7 +1,6 @@
 package core
 
 import (
-	"billing.api/core/models"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -11,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"suppliers.api/core/models"
 )
 
 type HTTP struct{ HTTPClient *http.Client }

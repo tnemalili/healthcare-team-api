@@ -1,4 +1,4 @@
-module billing.api
+module suppliers.api
 
 go 1.18
 
