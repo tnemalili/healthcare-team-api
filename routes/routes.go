@@ -33,7 +33,7 @@ func ConfigureRouter(router *echo.Echo) error {
 	///////////////////////////// AUTH SECTION ///////////////////////////////
 
 	api.POST("suppliers", controllers.CreateSupplier)
-	api.POST("responer", controllers.CreateSupplier)
+	api.POST("responder", controllers.CreateSupplier)
 
 	data, err := json.MarshalIndent(router.Routes(), "", "  ")
 	if err != nil {
